@@ -1,54 +1,22 @@
-import random
-
-
-
-
-def validate_guess(user_guess):
-    
-    if not user_guess.isdigit():
-        print("Invalid input. Please enter a valid number.")
-        return False
-    
-    user_guess = int(user_guess)
-    if user_guess > 100 or user_guess < 1 :
-        print ("Invalid input. Please enter a number between 1 and 100.")
-        return False
-    
-    return True
+from src.utils.input_validator import get_valid_input
+from src.game_logic.number_generator import generate_random_number
+from src.game_logic.hint_generator import provide_hint
+from src.game_logic.scorer import decrement_score
 
 
 def main():
+    actual_number = generate_random_number(1, 100)
     score = 100
-    random_number = random.randint(1, 100)
-    
     while True:
-        user_guess = input ("Please enter your guess: ")
-        
-        if user_guess == "q" :
-            print ("Good bye!")
-            return False
-        
-        if not validate_guess(user_guess):
+        user_guess = get_valid_input(1, 100)
+        print(user_guess)
+        if user_guess != actual_number:
+            score = decrement_score(score)
+            provide_hint(user_guess, actual_number)
             continue
-        
-        user_guess = int(user_guess)
-        
-        print (user_guess)
-        if user_guess < random_number:
-            print ("Your guess is lower than the target number.")
-            score -= 10
-            continue
-        
-        if user_guess > random_number:
-            print ("Your guess is higher than the target number.")
-            score -= 10
-            continue
-        
-        
-        print ("Congrats! You guessed the correct number!")
+        print ("Congratulations!!!! Your guess is correct!!!!")
         print (f"your score is: {score}")
-        break
+        return True
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
