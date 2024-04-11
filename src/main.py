@@ -8,15 +8,22 @@ def main():
     actual_number = generate_random_number(1, 100)
     score = 100
     while True:
-        user_guess = get_valid_input(1, 100)
-        print(user_guess)
-        if user_guess != actual_number:
-            score = decrement_score(score)
-            provide_hint(user_guess, actual_number)
-            continue
-        print ("Congratulations!!!! Your guess is correct!!!!")
-        print (f"your score is: {score}")
-        return True
+        if score == 0 :
+            print ("Game Over!!!! You guessed 10 wrong numbers and your score became zero!")
+            return False
+        else:
+            user_guess = get_valid_input(1, 100)
+            if user_guess != None:
+                print(user_guess)
+                if user_guess != actual_number:
+                    score = decrement_score(score)
+                    provide_hint(user_guess, actual_number)
+                    continue
+                print ("Congratulations!!!! Your guess is correct!!!!")
+                print (f"your score is: {score}")
+                return True
+            else:
+                return False
 
 if __name__ == '__main__':
     main()

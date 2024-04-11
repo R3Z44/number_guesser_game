@@ -9,3 +9,4 @@ def generate_random_number(start: int, end: int) -> int:
 
 if __name__ == "__main__":
     print (generate_random_number(1,100))
+    
